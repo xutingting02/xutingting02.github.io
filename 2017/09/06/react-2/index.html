@@ -79,7 +79,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="react," />
 
 
 
@@ -95,16 +95,18 @@
 
 
 
-<meta name="description" content="just code it">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Programmer girl">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta name="description" content="React与ajaxReact只负责处理view层，本身不涉及网络请求，所以需要考虑两个问题：  第一，用什么技术从服务端获取数据 第二，获取到的数据应该放在react组件的什么位置  解决方案1：使用jquery的Ajax方法，在一个组件的componentDidMount中发送ajax请求，拿到的数据存在组件自己的state中，并调用setState方法去更新ui，如果是异步获取数据，则在co">
+<meta name="keywords" content="react">
+<meta property="og:type" content="article">
+<meta property="og:title" content="react最佳实践">
+<meta property="og:url" content="http://yoursite.com/2017/09/06/react-2/index.html">
 <meta property="og:site_name" content="Programmer girl">
-<meta property="og:description" content="just code it">
+<meta property="og:description" content="React与ajaxReact只负责处理view层，本身不涉及网络请求，所以需要考虑两个问题：  第一，用什么技术从服务端获取数据 第二，获取到的数据应该放在react组件的什么位置  解决方案1：使用jquery的Ajax方法，在一个组件的componentDidMount中发送ajax请求，拿到的数据存在组件自己的state中，并调用setState方法去更新ui，如果是异步获取数据，则在co">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-09-06T05:15:05.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Programmer girl">
-<meta name="twitter:description" content="just code it">
+<meta name="twitter:title" content="react最佳实践">
+<meta name="twitter:description" content="React与ajaxReact只负责处理view层，本身不涉及网络请求，所以需要考虑两个问题：  第一，用什么技术从服务端获取数据 第二，获取到的数据应该放在react组件的什么位置  解决方案1：使用jquery的Ajax方法，在一个组件的componentDidMount中发送ajax请求，拿到的数据存在组件自己的state中，并调用setState方法去更新ui，如果是异步获取数据，则在co">
 
 
 
@@ -134,13 +136,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/09/06/react-2/"/>
 
 
 
 
 
-  <title>Programmer girl</title>
+  <title>react最佳实践 | Programmer girl</title>
   
 
 
@@ -169,8 +171,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -253,9 +254,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -285,9 +286,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/09/06/react-2/" itemprop="url">react最佳实践</a></h1>
+          <h1 class="post-title" itemprop="name headline">react最佳实践</h1>
         
 
         <div class="post-meta">
@@ -337,9 +336,7 @@
       
 
       
-        
-          
-            <h3 id="React与ajax"><a href="#React与ajax" class="headerlink" title="React与ajax"></a>React与ajax</h3><p>React只负责处理view层，本身不涉及网络请求，所以需要考虑两个问题：</p>
+        <h3 id="React与ajax"><a href="#React与ajax" class="headerlink" title="React与ajax"></a>React与ajax</h3><p>React只负责处理view层，本身不涉及网络请求，所以需要考虑两个问题：</p>
 <ul>
 <li>第一，用什么技术从服务端获取数据</li>
 <li>第二，获取到的数据应该放在react组件的什么位置</li>
@@ -358,8 +355,6 @@
 <h3 id="如何动态处理classNames"><a href="#如何动态处理classNames" class="headerlink" title="如何动态处理classNames"></a>如何动态处理classNames</h3><p>使用classnames这个小工具来拼接classNames</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">// AFTER：</div><div class="line">var classNames = require(&apos;classnames&apos;);</div><div class="line"></div><div class="line">var Button = React.createClass(&#123;</div><div class="line">  render () &#123;</div><div class="line">    var btnClass = classNames(&#123;</div><div class="line">      &apos;btn&apos;: true,</div><div class="line">      &apos;btn-pressed&apos;: this.state.isPressed,</div><div class="line">      &apos;btn-over&apos;: !this.state.isPressed &amp;&amp; this.state.isHovered</div><div class="line">    &#125;);</div><div class="line">    return &lt;button className=&#123;btnClass&#125;&gt;&#123;this.props.label&#125;&lt;/button&gt;;</div><div class="line">  &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
 
-          
-        
       
     </div>
     
@@ -374,138 +369,36 @@
 
     <footer class="post-footer">
       
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/05/react-1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Lemon">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1504582444835&di=51cb4c4f616f651599d65d7c840918b7&imgtype=0&src=http%3A%2F%2Fimg.duote.com%2FqqTxImg%2F2011%2F05%2F25%2F13062959944868.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Programmer girl">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/09/05/react-1/" itemprop="url">初入react世界_1</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-05T08:54:39+08:00">
-                2017-09-05
-              </time>
-            
-
-            
-
-            
-          </span>
-
+        <div class="post-tags">
           
-
+            <a href="/tags/react/" rel="tag"># react</a>
           
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
         </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="react简介"><a href="#react简介" class="headerlink" title="react简介"></a>react简介</h2><h4 id="1-专注视图层"><a href="#1-专注视图层" class="headerlink" title="1. 专注视图层"></a>1. 专注视图层</h4><p>react不是完整的MVC/MVVM框架，只专注于提供清晰简洁的view层解决方案。</p>
-<h4 id="2-virtual-DOM"><a href="#2-virtual-DOM" class="headerlink" title="2. virtual DOM"></a>2. virtual DOM</h4><p>提升性能，减少对传统DOM的操作。<br>方便和其他平台集成，react可以映射成对应的原生控件。</p>
-<h4 id="3-函数式编程"><a href="#3-函数式编程" class="headerlink" title="3. 函数式编程"></a>3. 函数式编程</h4><p>函数式编程是react的精髓。</p>
-<h2 id="JSX语法"><a href="#JSX语法" class="headerlink" title="JSX语法"></a>JSX语法</h2><h4 id="1-JSX的由来"><a href="#1-JSX的由来" class="headerlink" title="1. JSX的由来"></a>1. JSX的由来</h4><p>JSX将html语法直接加入到js代码中，再通过翻译器转换到纯js后由浏览器执行。<br>JSX并不是强制选项，只是让代码更加直观并易于维护。</p>
-<h4 id="2-JSX基本语法"><a href="#2-JSX基本语法" class="headerlink" title="2. JSX基本语法"></a>2. JSX基本语法</h4><p>定义标签时，只允许被一个标签包裹。<br>标签一定要闭合。<br>DOM元素首字母小写，组件元素首字母大写。<br>元素属性：class属性改为className for属性改为htmlFor<br>boolean属性：省略boolean属性值会导致JSX认为bool值设为true<br>自定义属性：使用data-前缀<br>js属性表达式：{}<br>html转义：<em>dangerouslySetInnerHTML</em> 避免react转义</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
       
 
       
       
-        <div class="post-eof"></div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/09/05/react-1/" rel="next" title="初入react世界_1">
+                <i class="fa fa-chevron-left"></i> 初入react世界_1
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
       
     </footer>
   </div>
@@ -515,10 +408,11 @@
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -526,6 +420,10 @@
 
 
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
         
@@ -546,8 +444,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           
             <img class="site-author-image" itemprop="image"
@@ -603,6 +510,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#React与ajax"><span class="nav-number">1.</span> <span class="nav-text">React与ajax</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#标准组件的组织结构"><span class="nav-number">2.</span> <span class="nav-text">标准组件的组织结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用PropTypes和getDefaultProps"><span class="nav-number">3.</span> <span class="nav-text">使用PropTypes和getDefaultProps</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何动态处理classNames"><span class="nav-number">4.</span> <span class="nav-text">如何动态处理classNames</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -730,6 +653,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
 
   
 
